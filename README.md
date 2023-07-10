@@ -1,9 +1,18 @@
 # dtt_ros_endpoint
 
-This repo plays a role as a endpoint to connect the ROS to Unity. 
+This repo is an endpoint to connect the ROS to Unity. 
 
-### TODO:
-Create a docker version.
+The endpoint is built as a docker image with the required dependencies and can be launched using the **_docker-compose.yaml_** file using the following command. 
+
+```
+cd "into the folder containing the docker-compose.yaml"
+
+# To start the service
+docker-compose up -d
+
+# To stop the service
+docker-compose down
+```
 
 ##
 ## Happy coding!
