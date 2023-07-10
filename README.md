@@ -8,7 +8,8 @@ The endpoint is built as a docker image with the required dependencies and can b
 Install docker on your local/development system using https://docs.docker.com/engine/install/
 
 ```
-cd "into the folder containing the docker-compose.yaml"
+git clone https://github.com/msunkaradtt/dtt_ros_endpoint.git
+cd dtt_ros_endpoint
 
 # To start the service
 docker-compose up -d
