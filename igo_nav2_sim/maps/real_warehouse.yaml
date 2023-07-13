@@ -1,0 +1,23 @@
+image: real_warehouse.pgm
+mode: trinary
+resolution: 0.05
+# origin: [-40.1, -52.6, 0] # "vehicle alignment point"
+# origin: [-48.4, -51.6, 0] # "goods-in corner"
+# origin: [-21.35, -24.9, 0] # "emergency exit corner"
+# origin: [-21.10, -24.90, 0] # "emergency exit corner" --> x und y auf Außenwand
+# origin: [-21.05, -24.85, 0] # "emergency exit corner" --> x und y außerhalb Außenwand --> falsche Richtung
+origin: [-21.15, -24.95, 0] # "emergency exit corner" --> Treffer!!!
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.25
+
+# size: 1381px x 1769px @ 0.05m/px resolution --> 69.05m x 88.45m
+# Origin: goods in-corner with coordinates (968px, 737px) with reference frame origin top left
+# Origin (with respect to bottom-left: (968px, 1769px - 737px) = (968px, 1032px) -- 0.05m/px --> (48.4m, 51.6m)
+#
+# origin approx: (900px, 700px) --> (45m, 35m) --> fits mainly to this origin
+# TODO: Try this one combined with localization system
+#
+# new origin in "emergency exit-corner" is (427px, 1271px) with reference to top left
+# Origin (with respect to bottom-left: (427px, 1769px - 1271px) = (427px, 498px) -- 0.05m/px --> (21.35m, 24.9m)
+# Effect on offset-parameters are: dx = 48.4m - 21.35m = 23.05m, dy = 51.6m - 24.9m = 26.7m

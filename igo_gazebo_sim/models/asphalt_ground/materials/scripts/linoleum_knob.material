@@ -1,0 +1,24 @@
+material vrc/linoleum_knob
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.5 0.5 0.5 1.0
+			diffuse 0.5 0.5 0.5 1.0
+			specular 0.2 0.2 0.2 1.0 12.5
+
+			texture_unit
+			{
+				# texture nora-norament-926-kautschuk-fliesen-mit-noppe-0702-gummi-objektboden-wnn0702-926.jpg
+				texture nora-norament-926-kautschuk-fliesen-mit-noppe-0716-gummi-objektboden-wnn0716-926.jpg
+				# texture nora-norament-926-kautschuk-fliesen-mit-noppe-0890-gummi-objektboden-wnn0890-926.jpg
+				# texture nora-norament-926-kautschuk-fliesen-mit-noppe-6191-gummi-objektboden-wnn6191-926.jpg
+
+				filtering anistropic
+				max_anisotropy 16
+				scale 0.001 0.001
+			}
+		}
+	}
+}

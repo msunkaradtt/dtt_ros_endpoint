@@ -1,0 +1,9 @@
+<class_libraries>
+    <library path="fwd_bwd_rotation_shim_controller">
+        <class type="fwd_bwd_rotation_shim_controller::RotationShimController" base_class_type="nav2_core::Controller">
+            <description>
+                fwd_bwd_rotation_shim_controller
+            </description>
+        </class>
+    </library>
+</class_libraries>

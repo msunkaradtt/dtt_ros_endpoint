@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<sdf version="1.5" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:include filename="$(find my_playground_2020a)/models/pallet_cardboard_boxes/link_model.xacro"/>
+  <model name="pallet cardboard boxes">
+    <!-- Rises the pallet above the ground -->
+    <static>false</static>
+    <self_collide>false</self_collide>
+    <allow_auto_disable>true</allow_auto_disable>
+
+    <link name="link">
+      <pose>0 0 0.0635  0 0 0</pose>
+      <xacro:linkContent_europallet/>
+    </link>
+
+    <xacro:bodyContent_pallet_cardboard_boxes mainLinkName="link" />
+  </model>
+</sdf>

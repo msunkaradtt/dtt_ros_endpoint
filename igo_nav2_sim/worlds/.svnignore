@@ -1,0 +1,7 @@
+svn propset svn:ignore "cafe.world
+car.world
+hospital.world
+house.world
+my_world.world
+office.world
+warehouse.world" .

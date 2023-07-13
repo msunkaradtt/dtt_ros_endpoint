@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<sdf version="1.6" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:include filename="$(find my_playground_2020a)/models/cardboard_box/link_model.xacro"/>
+  <model name="cardboard_box">
+    <pose>0 0 0.15 0 0 0</pose>
+
+    <link name="link">
+        <xacro:linkContent_cardboard_box/>
+    </link>
+  </model>
+</sdf>

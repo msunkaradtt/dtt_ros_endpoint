@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<sdf version="1.5" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:include filename="$(find my_playground_2020a)/models/europallet/link_model.xacro"/>
+  <model name="EuroPallet">
+    <!-- Rises the pallet above the ground -->
+    <pose>0 0 0.0635  0 0 0</pose>
+    <static>false</static>
+
+    <link name="link">
+        <xacro:linkContent_europallet/>
+    </link>
+  </model>
+</sdf>

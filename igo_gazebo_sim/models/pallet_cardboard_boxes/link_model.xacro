@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<sdf version="1.5" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:include filename="$(find my_playground_2020a)/models/europallet/link_model.xacro"/>
+  <xacro:include filename="$(find my_playground_2020a)/models/cardboard_box/link_model.xacro"/>
+  <xacro:macro name="linkContent_pallet_cardboard_boxes">
+    <xacro:linkContent_europallet/>
+  </xacro:macro>
+
+  <xacro:macro name="bodyContent_pallet_cardboard_boxes" params="mainLinkName">
+	<!-- Cardboard Box dimensions: 50 x 40 x 30 cm-->
+	
+	<!-- First level of boxes -->
+    <link name="cardboard_box_1_lvl_1">
+      <pose>0.25 0.2 0.297  0 0 0</pose>
+      <xacro:linkContent_cardboard_box/>
+    </link>
+    
+    <link name="cardboard_box_2_lvl_1">
+      <pose>0.25 -0.2 0.297  0 0 0</pose>
+      <xacro:linkContent_cardboard_box/>
+    </link>
+    
+    <link name="cardboard_box_3_lvl_1">
+      <pose>-0.25 0.2 0.297  0 0 0</pose>
+      <xacro:linkContent_cardboard_box/>
+    </link>
+
+    <link name="cardboard_box_4_lvl_1">
+      <pose>-0.25 -0.2 0.297  0 0 0</pose>
+      <xacro:linkContent_cardboard_box/>
+    </link>
+
+    <joint name="cardboard_box_1_lvl_1_joint" type="fixed"> <parent>${mainLinkName}</parent> <child>cardboard_box_1_lvl_1</child> </joint>
+    <joint name="cardboard_box_2_lvl_1_joint" type="fixed"> <parent>${mainLinkName}</parent> <child>cardboard_box_2_lvl_1</child> </joint>
+    <joint name="cardboard_box_3_lvl_1_joint" type="fixed"> <parent>${mainLinkName}</parent> <child>cardboard_box_3_lvl_1</child> </joint>
+    <joint name="cardboard_box_4_lvl_1_joint" type="fixed"> <parent>${mainLinkName}</parent> <child>cardboard_box_4_lvl_1</child> </joint>
+
+
+	<!-- Second level of boxes -->
+    <link name="cardboard_box_1_lvl_2">
+      <pose>0.25 0.2 0.597  0 0 0</pose>
+      <xacro:linkContent_cardboard_box/>
+    </link>
+    
+    <link name="cardboard_box_2_lvl_2">
+      <pose>0.25 -0.2 0.597  0 0 0</pose>
+      <xacro:linkContent_cardboard_box/>
+    </link>
+    
+    <link name="cardboard_box_3_lvl_2">
+      <pose>-0.25 0.2 0.597  0 0 0</pose>
+      <xacro:linkContent_cardboard_box/>
+    </link>
+
+    <link name="cardboard_box_4_lvl_2">
+      <pose>-0.25 -0.2 0.597  0 0 0</pose>
+      <xacro:linkContent_cardboard_box/>
+    </link>
+
+    <joint name="cardboard_box_1_lvl_2_joint" type="fixed"> <parent>${mainLinkName}</parent> <child>cardboard_box_1_lvl_2</child> </joint>
+    <joint name="cardboard_box_2_lvl_2_joint" type="fixed"> <parent>${mainLinkName}</parent> <child>cardboard_box_2_lvl_2</child> </joint>
+    <joint name="cardboard_box_3_lvl_2_joint" type="fixed"> <parent>${mainLinkName}</parent> <child>cardboard_box_3_lvl_2</child> </joint>
+    <joint name="cardboard_box_4_lvl_2_joint" type="fixed"> <parent>${mainLinkName}</parent> <child>cardboard_box_4_lvl_2</child> </joint>
+
+	
+	<!-- Third level of boxes -->
+    <link name="cardboard_box_1_lvl_3">
+      <pose>0.25 0.2 0.897  0 0 0</pose>
+      <xacro:linkContent_cardboard_box/>
+    </link>
+    
+    <link name="cardboard_box_2_lvl_3">
+      <pose>0.25 -0.2 0.897  0 0 0</pose>
+      <xacro:linkContent_cardboard_box/>
+    </link>
+    
+    <link name="cardboard_box_3_lvl_3">
+      <pose>-0.25 0.2 0.897  0 0 0</pose>
+      <xacro:linkContent_cardboard_box/>
+    </link>
+
+    <link name="cardboard_box_4_lvl_3">
+      <pose>-0.25 -0.2 0.897  0 0 0</pose>
+      <xacro:linkContent_cardboard_box/>
+    </link>
+
+    <joint name="cardboard_box_1_lvl_3_joint" type="fixed"> <parent>${mainLinkName}</parent> <child>cardboard_box_1_lvl_3</child> </joint>
+    <joint name="cardboard_box_2_lvl_3_joint" type="fixed"> <parent>${mainLinkName}</parent> <child>cardboard_box_2_lvl_3</child> </joint>
+    <joint name="cardboard_box_3_lvl_3_joint" type="fixed"> <parent>${mainLinkName}</parent> <child>cardboard_box_3_lvl_3</child> </joint>
+    <joint name="cardboard_box_4_lvl_3_joint" type="fixed"> <parent>${mainLinkName}</parent> <child>cardboard_box_4_lvl_3</child> </joint>
+
+  </xacro:macro>
+</sdf>

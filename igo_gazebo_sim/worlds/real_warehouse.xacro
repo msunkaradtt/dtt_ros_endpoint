@@ -1,0 +1,386 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Remarks to the parameters:
+      real_time_update_rate: Use 0 for simulate as fast as possible (but high failure rate) 
+    -->
+
+    <!-- Physics parameters fast execution -->
+    <!-- <physics type="ode">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>5</real_time_factor>
+      <real_time_update_rate>0</real_time_update_rate>
+      <max_contacts>3</max_contacts>
+    </physics> -->
+    <!-- Physics parameters normal execution -->
+    <physics type="ode">
+      <max_step_size>0.002</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>500</real_time_update_rate>
+      <max_contacts>3</max_contacts>
+    </physics>
+    <!-- Physics parameters making video -->
+    <!-- <physics type="ode">
+      <max_step_size>5e-4</max_step_size>
+      <real_time_factor>0.1</real_time_factor>
+      <real_time_update_rate>0.2e4</real_time_update_rate>
+      <max_contacts>3</max_contacts>
+    </physics> -->
+
+    <!-- Scene parameters -->
+    <scene>
+      <shadows>false</shadows>
+    </scene>
+
+    <!-- Camera setting -->
+    <gui>
+      <camera name="gzclient_camera">
+        <!-- <projection_type>orthographic</projection_type> -->
+        <pose>19.4 -22.3 32.5 0.0 0.7 1.578</pose>
+      </camera>
+    </gui>
+
+    
+    <xacro:macro name="workdesk" params="name pX pY oZ">
+      <include>
+        <uri>model://workdesk</uri>
+        <name>${name}</name>
+        <pose>${pX} ${pY} 0 0 0 ${oZ}</pose>
+        <static>true</static>
+      </include>
+    </xacro:macro>
+
+    <xacro:macro name="worker" params="name pX pY oZ">
+      <include>
+        <uri>model://person_standing</uri>
+        <name>${name}</name>
+        <pose>${pX} ${pY} 0 0 0 ${oZ}</pose>
+        <static>true</static>
+      </include>
+    </xacro:macro>
+
+    <xacro:macro name="palletShelf" params="name pX pY oZ">
+      <include>
+        <uri>model://shelves_2</uri>
+        <name>${name}_palletshelf_1</name>
+        <pose>${pX} ${pY} 0 0 0 ${oZ}</pose>
+        <static>true</static>
+      </include>
+    </xacro:macro>
+
+    <xacro:macro name="zones" params="name pX pY oZ">
+      <!-- Zone 1 -->
+      <road name="${name}_FetchZone1">
+        <width>0.075</width>
+        <point>${-7+pX} ${-4+pY} 0.0002</point>
+        <point>${-5+pX} ${-4+pY} 0.0002</point>
+        <point>${-5+pX} ${ 0+pY} 0.0002</point>
+        <point>${-7+pX} ${ 0+pY} 0.0002</point>
+        <point>${-7+pX} ${-4+pY} 0.0002</point>
+        <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Orange</name>
+            </script>
+          </material>
+      </road>
+
+      <road name="${name}_DropZone1">
+        <width>0.075</width>
+        <point>${-4+pX} ${-4+pY} 0.0002</point>
+        <point>${-2+pX} ${-4+pY} 0.0002</point>
+        <point>${-2+pX} ${ 0+pY} 0.0002</point>
+        <point>${-4+pX} ${ 0+pY} 0.0002</point>
+        <point>${-4+pX} ${-4+pY} 0.0002</point>
+        <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+          </material>
+      </road>
+
+      <road name="${name}_DropZone2">
+        <width>0.075</width>
+        <point>${-1+pX} ${-4+pY} 0.0002</point>
+        <point>${ 1+pX} ${-4+pY} 0.0002</point>
+        <point>${ 1+pX} ${ 0+pY} 0.0002</point>
+        <point>${-1+pX} ${ 0+pY} 0.0002</point>
+        <point>${-1+pX} ${-4+pY} 0.0002</point>
+        <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+          </material>
+      </road>
+
+      <road name="${name}_DropZone3">
+        <width>0.075</width>
+        <point>${ 2+pX} ${-4+pY} 0.0002</point>
+        <point>${ 4+pX} ${-4+pY} 0.0002</point>
+        <point>${ 4+pX} ${ 0+pY} 0.0002</point>
+        <point>${ 2+pX} ${ 0+pY} 0.0002</point>
+        <point>${ 2+pX} ${-4+pY} 0.0002</point>
+        <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+          </material>
+      </road>
+    </xacro:macro>
+
+    <xacro:macro name="driveways" params="name pX pY oZ">
+      <!-- Corner 1 (bottom right) -->
+      <road name="${name}_corner1">
+        <width>0.075</width>
+        <point>${ 10+pX} ${-10+pY} 0.0002</point>
+        <point>${ 10+pX} ${ -8+pY} 0.0002</point>
+        <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Yellow</name>
+            </script>
+          </material>
+      </road>
+      <!-- Corner 2 (bottom left) -->
+      <road name="${name}_corner2">
+        <width>0.075</width>
+        <point>${  7+pX} ${-10+pY} 0.0002</point>
+        <point>${  7+pX} ${ -8+pY} 0.0002</point>
+        <point>${-10+pX} ${ -8+pY} 0.0002</point>
+        <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Yellow</name>
+            </script>
+          </material>
+      </road>
+      <!-- Corner 3 (top left) -->
+      <road name="${name}_corner3">
+        <width>0.075</width>
+        <point>${-10+pX} ${ -5+pY} 0.0002</point>
+        <point>${  7+pX} ${ -5+pY} 0.0002</point>
+        <point>${  7+pX} ${ 10+pY} 0.0002</point>
+        <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Yellow</name>
+            </script>
+          </material>
+      </road>
+      <!-- Corner 4 (top right) -->
+      <road name="${name}_corner4">
+        <width>0.075</width>
+        <point>${ 10+pX} ${ -5+pY} 0.0002</point>
+        <point>${ 10+pX} ${ 10+pY} 0.0002</point>
+        <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Yellow</name>
+            </script>
+          </material>
+      </road>
+    </xacro:macro>
+
+    <xacro:macro name="europallet" params="name pX pY oZ">
+      <include>
+        <name>${name}</name>
+        <uri>model://europallet</uri>
+        <pose>${pX} ${pY} 0 0 0 ${oZ}</pose>
+      </include>
+    </xacro:macro>
+
+    <xacro:macro name="outerWallSegment" params="name pX pY oZ">
+      <include>
+        <name>${name}</name>
+        <uri>model://flat_brick_wall</uri>
+        <pose>${pX} ${pY} 0 0 0 ${oZ}</pose>
+      </include>
+    </xacro:macro>
+
+    <xacro:macro name="pillar" params="name pX pY oZ length">
+      <model name="grey_brick_pillar_${name}">
+        <static>true</static>
+        <link name="link">
+          <pose>${pX} ${pY} 1.0 0 0 ${oZ}</pose>
+          <collision name="collision">
+            <geometry>
+              <box>
+                <size>${length} ${length} 2.0</size>
+              </box>
+            </geometry>
+          </collision>
+          <visual name="visual">
+            <cast_shadows>false</cast_shadows>
+            <geometry>
+              <box>
+                <size>${length} ${length} 2.0</size>
+              </box>
+            </geometry>
+            <material>
+              <script>
+                <uri>model://grey_wall/materials/scripts</uri>
+                <uri>model://grey_wall/materials/textures</uri>
+                <name>vrc/grey_wall</name>
+              </script>
+            </material>
+          </visual>
+        </link>
+      </model>
+    </xacro:macro>
+
+    <xacro:macro name="outerWall" params="name pX pY oZ length">
+      <model name="grey_brick_wall_${name}">
+        <static>true</static>
+        <link name="link">
+          <pose>${pX} ${pY} 1.0 0 0 ${oZ}</pose>
+          <collision name="collision">
+            <geometry>
+              <box>
+                <size>${length} 0.2 2.0</size>
+              </box>
+            </geometry>
+          </collision>
+          <visual name="visual">
+            <cast_shadows>false</cast_shadows>
+            <geometry>
+              <box>
+                <size>${length} 0.2 2.0</size>
+              </box>
+            </geometry>
+            <material>
+              <script>
+                <uri>model://grey_wall/materials/scripts</uri>
+                <uri>model://grey_wall/materials/textures</uri>
+                <name>vrc/grey_wall</name>
+              </script>
+            </material>
+          </visual>
+        </link>
+      </model>
+    </xacro:macro>
+
+
+    <!-- =================================================================================  -->
+    <!--                                    UK-part                                         -->
+    <!-- =================================================================================  -->
+    <!-- Fixed pallet shelfs -->
+    <xacro:palletShelf name="UK_palletShelf_1" pX=" 1.00" pY="31.50" oZ="${pi/2}" />
+    <xacro:palletShelf name="UK_palletShelf_2" pX=" 1.00" pY="26.60" oZ="${pi/2}" />
+    <xacro:palletShelf name="UK_palletShelf_3" pX=" 5.00" pY="31.50" oZ="${pi/2}" />
+    <!-- Movable pallet shelfs -->
+    <xacro:palletShelf name="UK_palletShelf_4" pX=" 8.50" pY="37.25" oZ="${-3*pi/4}" />
+
+    <!-- Add equipment and workers to the scene (disable this for mapping) -->
+    <xacro:if value="true">
+      <!-- workers -->
+      <xacro:worker name="UK_worker_1" pX=" 3.00" pY="28.00" oZ="${ pi}" />
+      <xacro:worker name="UK_worker_2" pX="25.00" pY="35.00" oZ="${-pi/2}" />
+      <xacro:worker name="UK_worker_3" pX="20.00" pY="30.00" oZ="${-0.2}" />
+      <xacro:worker name="UK_worker_4" pX="13.00" pY="25.00" oZ="${ 3.34}" />
+      <xacro:worker name="UK_worker_5" pX="15.00" pY="25.00" oZ="${-0.35}" />
+      <xacro:worker name="UK_worker_6" pX="13.00" pY="25.00" oZ="${ pi/2}" />
+    </xacro:if>
+
+
+    <!-- =================================================================================  -->
+    <!--                                 robotic-part                                       -->
+    <!-- =================================================================================  -->
+    <!-- Movable pallet shelfs -->
+    <xacro:palletShelf name="rob_palletShelf_1" pX="15.00" pY=" 1.25" oZ="0.00" />
+
+
+    <!-- Tables and workdesks -->
+    <xacro:workdesk name="rob_workdesk_1" pX="24.50" pY=" 1.25" oZ="0.00" />
+
+    <!-- Pallet lane -->
+    <xacro:if value="true">
+      <!-- workers -->
+      <!-- <xacro:europallet name="rob_europallet_01" pX="20.00" pY=" 6.00" oZ="0.00" /> -->
+      <!-- <xacro:europallet name="rob_europallet_02" pX="18.60" pY=" 5.00" oZ="0.00" /> -->
+      <xacro:europallet name="rob_europallet_03" pX="17.20" pY=" 5.00" oZ="0.00" />
+      <xacro:europallet name="rob_europallet_04" pX="15.80" pY=" 5.00" oZ="0.00" />
+      <xacro:europallet name="rob_europallet_05" pX="14.40" pY=" 5.00" oZ="0.00" />
+      <xacro:europallet name="rob_europallet_06" pX="13.00" pY=" 5.00" oZ="0.00" />
+      <xacro:europallet name="rob_europallet_07" pX="11.60" pY=" 5.00" oZ="0.00" />
+      <xacro:europallet name="rob_europallet_08" pX="10.20" pY=" 5.00" oZ="0.00" />
+      <xacro:europallet name="rob_europallet_09" pX=" 8.80" pY=" 5.00" oZ="0.00" />
+      <!-- <xacro:europallet name="rob_europallet_10" pX=" 7.40" pY=" 5.00" oZ="0.00" /> -->
+    </xacro:if>
+
+
+    <!-- Outer walls and pillars -->
+    <!-- 
+      Wände (von unten links): x: 27.2m -> dann y: 9m für Werkstatt und Tor 1 -> y: 17.5m -> x: 7.5 -> y: 8.5 -> x:-7.5 (das ist alles Tor 2+3) -> y: 5.5 (hier endet oben rechts der 1. Part)
+      Wände ab oben rechts: x: -4.0 -> y: 0.3 -> x: -8.6, y: 0.3 -> x: -9.0 -> y: -4.7 -> x: -5.5 -> y: -36.3 (fertig!!!)
+      - - - - - - 
+      workshop + gate 1
+      y: 1.25 + gap to y: 0.25 -> x: 7.5 -> y: 5.0 -> (x: -7.5 -> y: -1.0) + y: 4: 4.0 -> x: -7.5
+    -->
+    <!-- bottom left corner -->
+    <xacro:outerWall name="outerWall01" pX=" 13.65" pY=" 0.00" oZ="0.00" length="27.3" />
+    <xacro:outerWall name="outerWall02" pX=" 27.30" pY=" 0.625" oZ="1.57" length="1.25" />
+    <xacro:outerWall name="outerWall04" pX=" 31.05" pY=" 0.25" oZ="0.00" length="7.5" />
+    <xacro:outerWall name="outerWall05" pX=" 34.80" pY=" 2.75" oZ="1.57" length="5.0" />
+    <xacro:outerWall name="outerWall06" pX=" 31.05" pY=" 5.25" oZ="0.00" length="7.5" />
+    <xacro:outerWall name="outerWall07" pX=" 27.30" pY=" 4.75" oZ="1.57" length="1.0" />
+    <xacro:outerWall name="outerWall08" pX=" 34.80" pY=" 7.25" oZ="1.57" length="4.0" />
+    <xacro:outerWall name="outerWall09" pX=" 31.05" pY=" 9.25" oZ="0.00" length="7.5" />
+    <xacro:outerWall name="outerWall10" pX=" 27.30" pY="17.75" oZ="1.57" length="17.5" />
+    <xacro:outerWall name="outerWall11" pX=" 30.95" pY="26.50" oZ="0.00" length="7.5" />
+    <xacro:outerWall name="outerWall12" pX=" 34.70" pY="30.75" oZ="1.57" length="8.5" />
+    <xacro:outerWall name="outerWall13" pX=" 30.95" pY="35.00" oZ="0.00" length="7.5" />
+    <xacro:outerWall name="outerWall14" pX=" 27.30" pY="37.75" oZ="1.57" length="5.5" />
+    <!-- top right corner -->
+    <xacro:outerWall name="outerWall15" pX=" 25.30" pY="40.50" oZ="0.00" length="4.0" />
+    <xacro:outerWall name="outerWall16" pX=" 23.30" pY="40.35" oZ="1.57" length="0.3" />
+    <xacro:outerWall name="outerWall17" pX=" 19.00" pY="40.20" oZ="0.00" length="8.6" />
+    <xacro:outerWall name="outerWall18" pX=" 14.50" pY="40.35" oZ="1.57" length="0.3" />
+    <xacro:outerWall name="outerWall19" pX=" 10.00" pY="40.50" oZ="0.00" length="9.0" />
+    <xacro:outerWall name="outerWall20" pX="  5.50" pY="38.15" oZ="1.57" length="4.7" />
+    <xacro:outerWall name="outerWall21" pX="  2.75" pY="35.80" oZ="0.00" length="5.5" />
+    <xacro:outerWall name="outerWall22" pX="  0.00" pY="17.90" oZ="1.57" length="35.8" />
+    <!-- Pillars -->
+    <xacro:pillar name="innerPillar01" pX="  7.00" pY="15.00" oZ="0.00" length="0.6" />
+    <xacro:pillar name="innerPillar02" pX=" 14.00" pY="15.00" oZ="0.00" length="0.6" />
+    <xacro:pillar name="innerPillar03" pX=" 21.00" pY="15.00" oZ="0.00" length="0.6" />
+
+
+    <!-- Floor and lights -->
+    <light name="corridor_light1" type="directional">
+      <pose>0 0 10 0 0 0</pose>
+      <direction>0 0.18 -1</direction>
+      <diffuse>.5 .5 .5 1</diffuse>
+      <specular>.5 .5 .5 1</specular>
+      <attenuation>
+        <range>20</range>
+        <linear>0.2</linear>
+        <constant>0.8</constant>
+        <quadratic>0.01</quadratic>
+      </attenuation>
+      <cast_shadows>true</cast_shadows>
+    </light>
+    
+    <light name="corridor_light2" type="directional">
+      <pose>0 0 10 0 0 0</pose>
+      <direction>0 -0.18 -1</direction>
+      <diffuse>.5 .5 .5 1</diffuse>
+      <specular>.5 .5 .5 1</specular>
+      <attenuation>
+        <range>20</range>
+        <linear>0.2</linear>
+        <constant>0.8</constant>
+        <quadratic>0.01</quadratic>
+      </attenuation>
+      <cast_shadows>true</cast_shadows>
+    </light>
+    
+    <include>
+      <uri>model://asphalt_ground</uri>
+    </include>
+
+  </world>
+</sdf>
